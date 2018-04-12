@@ -64,8 +64,7 @@ http.createServer(function (req, res) {
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/sheets.googleapis.com-nodejs-quickstart.json
 	const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
-	const TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
-		process.env.USERPROFILE) + '/.credentials/';
+	const TOKEN_DIR = __dirname+'/.credentials/';
 	const TOKEN_PATH = TOKEN_DIR + 'sheets.googleapis.com-nodejs-quickstart.json';
 	authorize(app_auth_credentials, listMajors);
 
