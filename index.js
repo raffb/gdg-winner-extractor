@@ -240,7 +240,6 @@ console.log(' * Alessandro Maggio (GDG CT) *');
 console.log(' ******************************');
 console.log('');
 console.log(' Server running at http://localhost:8002/');
-//console.log(' Machine IP on the network: ' + ip.address());
-console.log(' Access this server from the same network at ' + ip.address() + ':8002');
+if(process.env.NODE_ENV==='development')console.log(' Access this server from the same network at ' + ip.address() + ':8002');
 console.log('');
 console.log('########## SERVER LOG START ##########');
