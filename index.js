@@ -30,6 +30,11 @@ if(process.env.NODE_ENV!=='development'){
 	});
 }
 
+const app_auth_credentials={
+	client_secret: process.env.AUTH_CLIENT_SECRET,
+	client_id: process.env.AUTH_CLIENT_ID,
+	redirect_urls: process.env.AUTH_REDIRECT_URL
+};
 
 const mailOptions = {
 	from: '"'+process.env.GMAIL_NAME+'" <'+process.env.GMAIL_EMAIL+'>',
@@ -62,18 +67,7 @@ http.createServer(function (req, res) {
 	const TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
 		process.env.USERPROFILE) + '/.credentials/';
 	const TOKEN_PATH = TOKEN_DIR + 'sheets.googleapis.com-nodejs-quickstart.json';
-
-
-// Load client secrets from a local file.
-	fs.readFile('client_secret.json', function processClientSecrets(err, content) {
-		if (err) {
-			console.log('Error loading client secret file: ' + err);
-			return;
-		}
-		// Authorize a client with the loaded credentials, then call the
-		// Google Sheets API.
-		authorize(JSON.parse(content), listMajors);
-	});
+	authorize(app_auth_credentials, listMajors);
 
 
 	/**
@@ -84,11 +78,11 @@ http.createServer(function (req, res) {
 	 * @param {function} callback The callback to call with the authorized client.
 	 */
 	function authorize(credentials, callback) {
-		var clientSecret = credentials.client_secret;
-		var clientId = credentials.client_id;
-		var redirectUrl = credentials.redirect_uris;
-		var auth = new googleAuth();
-		var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
+		const clientSecret = credentials.client_secret;
+		const clientId = credentials.client_id;
+		const redirectUrl = credentials.redirect_urls;
+		const auth = new googleAuth();
+		const oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
 		// Check if we have previously stored a token.
 		fs.readFile(TOKEN_PATH, function (err, token) {
