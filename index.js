@@ -19,7 +19,7 @@ let transporter = nodemailer.createTransport({
 	authMethod:process.env.MAILTRAP_AUTH
 });
 
-if(!process.env.NODE_ENV==='development'){
+if(process.env.NODE_ENV!=='development'){
 
 	transporter = nodemailer.createTransport({
 		service: 'Gmail',
